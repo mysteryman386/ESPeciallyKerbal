@@ -18,19 +18,20 @@
 #include <ESPmDNS.h>
 
 //WiFi settings, change as you see fit.
-const char *ssid = "SK-Misc-AP";
-const char *password = "NGSQYEZPS3";
+const char *ssid = "SPARK-6LHYX5";
+const char *password = "QuickTigerUU38$";
+//Authkey, change it to the Sprigs specified code, otherwise you can't authorize risky actions
+const String authkey = "E6632C85937C2730";
 
 // Sprig backend host (mDNS name)
 String rp2040Host = "http://KerbalSprigProgram.local";
-const String authkey = "E6632C85937C2730";
+
 
 AsyncWebServer server(80);
 
 void setup() {
   Serial.begin(115200);
   delay(1000);
-
   // Connect to Wi-Fi
   WiFi.begin(ssid, password);
   Serial.print("Connecting to WiFi");
@@ -79,6 +80,14 @@ void setup() {
     request->send(200, "text/plain", "Lights toggled");
   });
 
+  server.on("/api/verticalAltitude", HTTP_GET, [](AsyncWebServerRequest *request) {
+    request->send(200, "text/plain", forwardToRP2040("/verticalAltitude", false));
+  });
+
+    server.on("/api/surfaceVelocity", HTTP_GET, [](AsyncWebServerRequest *request) {
+    request->send(200, "text/plain", forwardToRP2040("/surfaceVelocity", false));
+  });
+
   server.begin();
 }
 
@@ -86,11 +95,12 @@ void loop() {
 }
 
 // Function to forward a GET request to the RP2040. 1st parameter determines where to redirect the user to, 2nd parameter determines if the user wants to append an API token to authorize risky actions.
-void forwardToRP2040(const String &path, bool needAuth) {
+String forwardToRP2040(const String &path, bool needAuth) {
   HTTPClient http;
   String url;
+  String payload;
   if (needAuth == true) {
-    url = rp2040Host + path + "auth?=" + authkey;
+    url = rp2040Host + path + "?auth=" + authkey;
   } else {
     url = rp2040Host + path;
   }
@@ -98,8 +108,12 @@ void forwardToRP2040(const String &path, bool needAuth) {
   int code = http.GET();
   if (code > 0) {
     Serial.printf("Forwarded %s: code %d\n", path.c_str(), code);
+    if (code == HTTP_CODE_OK) {
+      payload = http.getString();  // Get the response body
+    }
   } else {
     Serial.printf("Failed to forward %s\n", path.c_str());
   }
   http.end();
+  return payload;
 }
