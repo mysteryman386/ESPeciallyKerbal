@@ -39,6 +39,22 @@ document.getElementById("lightsBtn").addEventListener("click", () => {
   sendCommand("/api/lights");
 });
 
+document.getElementById("stageBtn").addEventListener("click", () => {
+  sendCommand("/api/stage");
+});
+
+document.getElementById("rcsBtn").addEventListener("click", () => {
+  sendCommand("/api/rcs");
+});
+
+document.getElementById("gearsBtn").addEventListener("click", () => {
+  sendCommand("/api/gears");
+});
+
+document.getElementById("brakesBtn").addEventListener("click", () => {
+  sendCommand("/api/brakes");
+});
+
 //Speed and altitude polling
 async function updateStatus() {
   const statusEl = document.getElementById("status");

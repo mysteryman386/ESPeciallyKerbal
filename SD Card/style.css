@@ -43,6 +43,18 @@ button.danger {
   color: white;
 }
 
+#rcsBtn {
+  background: #d4be33;
+}
+
+#gearsBtn{
+	background:#2ad43b;
+}
+
+#brakesBtn{
+	background:#cf9100;
+}
+
 button.danger:hover {
   transform: scale(1.2);
   background: #cc0000;
