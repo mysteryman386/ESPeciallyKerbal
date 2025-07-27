@@ -18,10 +18,10 @@
 #include <ESPmDNS.h>
 
 //WiFi settings, change as you see fit.
-const char *ssid = "SPARK-6LHYX5";
-const char *password = "QuickTigerUU38$";
+const char *ssid = "PLACEHOLDER";
+const char *password = "PLACEHOLDER";
 //Authkey, change it to the Sprigs specified code, otherwise you can't authorize risky actions
-const String authkey = "E6632C85937C2730";
+const String authkey = "PLACEHOLDER";
 
 // Sprig backend host (mDNS name)
 String rp2040Host = "http://KerbalSprigProgram.local";
