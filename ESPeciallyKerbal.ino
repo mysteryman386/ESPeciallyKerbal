@@ -4,7 +4,7 @@
 
     An ESP32 companion program for KerbalSprigProgram that hosts a web UI to control Kerbal Space Program
 
-    This Version Modified 27/06/2025
+    This Version Modified 26/07/2025
     By Wilmer Zhang
 
 */
@@ -86,6 +86,26 @@ void setup() {
 
     server.on("/api/surfaceVelocity", HTTP_GET, [](AsyncWebServerRequest *request) {
     request->send(200, "text/plain", forwardToRP2040("/surfaceVelocity", false));
+  });
+
+    server.on("/api/stage", HTTP_GET, [](AsyncWebServerRequest *request) {
+    forwardToRP2040("/stage", false);
+    request->send(200, "text/plain", "staged");
+  });
+
+    server.on("/api/rcs", HTTP_GET, [](AsyncWebServerRequest *request) {
+    forwardToRP2040("/rcs", false);
+    request->send(200, "text/plain", "RCS toggled");
+  });
+
+    server.on("/api/gears", HTTP_GET, [](AsyncWebServerRequest *request) {
+    forwardToRP2040("/gears", false);
+    request->send(200, "text/plain", "Gears toggled");
+  });
+
+    server.on("/api/brakes", HTTP_GET, [](AsyncWebServerRequest *request) {
+    forwardToRP2040("/brakes", false);
+    request->send(200, "text/plain", "Brakes toggled");
   });
 
   server.begin();
