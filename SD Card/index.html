@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ESPeciallyKerbal Control Panel</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+
+<body>
+  <header>
+    <h1>ESPeciallyKerbal Control Panel</h1>
+  </header>
+
+  <main>
+	<div id="status"></div>
+ 
+    <div class="button-container">
+      <button id="abortBtn" class="danger">Abort</button>
+      <button id="sasBtn">Toggle SAS</button>
+      <button id="lightsBtn">Toggle Lights</button>
+    </div>    
+	
+  </main>
+    <div id="abortModal" class="modal">
+    <div class="modal-content">
+      <h2>⚠️ WARNING!</h2>
+      <p>This will initiate the ABORT sequence. Are you sure?</p>
+      <button id="confirmAbort" class="doom-button">YES, ABORT!</button>
+      <button id="cancelAbort" class="cancel-button">Cancel</button>
+    </div>
+  </div>
+
+
+  <script src="/script.js"></script>
+</body>
+<footer>
+</footer>
+</html>
